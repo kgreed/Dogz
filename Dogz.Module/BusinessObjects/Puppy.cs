@@ -1,6 +1,8 @@
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl.EF;
 using DevExpress.XtraScheduler.Native;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Linq;
 namespace Dogz.Module.BusinessObjects
 {
     
-    public abstract class Puppy
+    public abstract class Puppy :    MyBaseObject ,INotifyPropertyChanging , INotifyPropertyChanged
     {
 
         public Puppy()
@@ -17,8 +19,8 @@ namespace Dogz.Module.BusinessObjects
             // this.AssociatedEntities = new ObservableCollection<AssociatedEntityObject>();
         }
 
-        [Key]
-        public virtual int Id { get; set; }
+        //[Key]
+        //public virtual Guid Id { get; set; }
 
         public virtual string Name { get; set; }
         public virtual int ParentId { get; set; }
@@ -31,5 +33,7 @@ namespace Dogz.Module.BusinessObjects
         [NotMapped]
         public virtual DogBreed Breed => (DogBreed)BreedId;
 
+        public abstract event PropertyChangingEventHandler PropertyChanging;
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

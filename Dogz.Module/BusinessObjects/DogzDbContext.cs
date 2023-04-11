@@ -59,9 +59,7 @@ public class DogzEFCoreDbContext : DbContext {
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         base.OnModelCreating(modelBuilder);
         modelBuilder.HasChangeTrackingStrategy(ChangeTrackingStrategy.ChangingAndChangedNotificationsWithOriginalValues);
-
-
-
+         
         modelBuilder.Entity<Dog>().ToTable("Dogs");
         modelBuilder.Entity<Dog>().HasDiscriminator<int>(x => x.BreedId)
             .HasValue<Poodle>((int)DogBreed.Poodle)
@@ -79,51 +77,8 @@ public class DogzEFCoreDbContext : DbContext {
         modelBuilder.Entity<PugPup>().HasOne(x => x.PugParent).WithMany(x => x.PugPups).HasForeignKey(x => x.ParentId);
         modelBuilder.Entity<Puppy>().HasOne(x => x.Parent).WithMany(x => x.Puppies).HasForeignKey(x => x.ParentId);
 
-        //modelBuilder.Entity<Dogz.Module.BusinessObjects.ApplicationUserLoginInfo>(b => {
-        //    b.HasIndex(nameof(DevExpress.ExpressApp.Security.ISecurityUserLoginInfo.LoginProviderName), nameof(DevExpress.ExpressApp.Security.ISecurityUserLoginInfo.ProviderUserKey)).IsUnique();
-        //});
-        //modelBuilder.Entity<AuditEFCoreWeakReference>()
-        //    .HasMany(p => p.AuditItems)
-        //    .WithOne(p => p.AuditedObject);
-        //modelBuilder.Entity<AuditEFCoreWeakReference>()
-        //    .HasMany(p => p.OldItems)
-        //    .WithOne(p => p.OldObject);
-        //modelBuilder.Entity<AuditEFCoreWeakReference>()
-        //    .HasMany(p => p.NewItems)
-        //    .WithOne(p => p.NewObject);
-        //modelBuilder.Entity<AuditEFCoreWeakReference>()
-        //    .HasMany(p => p.UserItems)
-        //    .WithOne(p => p.UserObject);
-        //modelBuilder.Entity<ModelDifference>()
-        //    .HasMany(t => t.Aspects)
-        //    .WithOne(t => t.Owner)
-        //    .OnDelete(DeleteBehavior.Cascade);
+         
     }
 }
 
-//public class DogzAuditingDbContext : DbContext {
-//    public DogzAuditingDbContext(DbContextOptions<DogzAuditingDbContext> options) : base(options) {
-//    }
-//    public DbSet<AuditDataItemPersistent> AuditData { get; set; }
-//    public DbSet<AuditEFCoreWeakReference> AuditEFCoreWeakReference { get; set; }
-
-//	protected override void OnModelCreating(ModelBuilder modelBuilder) {
-//        base.OnModelCreating(modelBuilder);
-//        modelBuilder.HasChangeTrackingStrategy(ChangeTrackingStrategy.ChangingAndChangedNotificationsWithOriginalValues);
-//        modelBuilder.Entity<AuditEFCoreWeakReference>()
-//            .HasMany(p => p.AuditItems)
-//            .WithOne(p => p.AuditedObject);
-//        modelBuilder.Entity<AuditEFCoreWeakReference>()
-//            .HasMany(p => p.OldItems)
-//            .WithOne(p => p.OldObject);
-//        modelBuilder.Entity<AuditEFCoreWeakReference>()
-//            .HasMany(p => p.NewItems)
-//            .WithOne(p => p.NewObject);
-//        modelBuilder.Entity<AuditEFCoreWeakReference>()
-//            .HasMany(p => p.UserItems)
-//            .WithOne(p => p.UserObject);
-
-
-
-//    }
-//}
+ 

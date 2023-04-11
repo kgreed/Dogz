@@ -23,6 +23,7 @@ namespace Dogz.Win.Controllers
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class ViewControllerDog : ViewController
     {
+        SimpleAction actTestOS;
         SimpleAction actTest;
         // Use CodeRush to create Controllers and Actions with a few keystrokes.
         // https://docs.devexpress.com/CodeRushForRoslyn/403133/
@@ -30,10 +31,36 @@ namespace Dogz.Win.Controllers
         {
             InitializeComponent();
             TargetObjectType = typeof(Dogz.Module.BusinessObjects.Dog);
-            actTest = new SimpleAction(this, "Test", "View");
+            actTest = new SimpleAction(this, "TestDb", "View");
             actTest.Execute += actTest_Execute;
+            actTestOS = new SimpleAction(this, "TestOS", "View");
+            actTestOS.Execute += actTestOS_Execute;
             
+
             // Target required Views (via the TargetXXX properties) and create their Actions.
+        }
+        private void actTestOS_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+            var d = View.CurrentObject as Dog;
+
+            var pug = d as Pug;
+            if (pug is null)
+            {
+                MessageBox.Show("Opps we need a Pug selected");
+                return;
+
+            }
+
+            var os = Application.CreateObjectSpace(typeof(Dog));
+            var pugPup = os.CreateObject<PugPup>();
+            pugPup.Parent = pug;
+            pugPup.BreedId = (int)DogBreed.Pug;
+            pugPup.Name = $"Bert {DateTime.Now}";
+            pug.PugPups.Add(pugPup);
+
+            os.CommitChanges();
+
+            //Unable to cast object of type 'Castle.Proxies.PugPupProxy' to type 'Dogz.Module.BusinessObjects.DalmationPup'.
         }
         private void actTest_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
@@ -51,14 +78,22 @@ namespace Dogz.Win.Controllers
             var db = Helpers.MakeDbContext();
             var pugPup = new PugPup
             {
-                Parent = pug
+                Parent = pug,
+                Name = $"Bert {DateTime.Now}"
             };
             pug.PugPups.Add(pugPup);
-
-            //db.Add(pugPup);
-            //db.Puppies.Add(pugPup);  
+             
+          
+            db.Puppies.Add(pugPup);
             //System.InvalidOperationException: 'The entity type 'PugPup' is configured to use the 'ChangingAndChangedNotificationsWithOriginalValues' change tracking strategy, but does not implement the required 'INotifyPropertyChanging' interface. Implement 
+            // If I make the keys a guid I get duplicate key errors
+            // If I have keys as an int I get SqlException: Cannot insert explicit value for identity column in table 'Dogs' when IDENTITY_INSERT is set to OFF.
+
             db.SaveChanges();
+           
+            var puppyCount = db.Puppies.Count();
+            MessageBox.Show($"There are {puppyCount} puppies");
+            //MessageBox.Show("PugPup added");
 
 
         }

@@ -25,7 +25,7 @@ namespace Dogz.Module.BusinessObjects
     // Specify more UI options using a declarative approach (https://documentation.devexpress.com/#eXpressAppFramework/CustomDocument112701).
     // You do not need to implement the INotifyPropertyChanged interface - EF Core implements it automatically.
     // (see https://learn.microsoft.com/en-us/ef/core/change-tracking/change-detection#change-tracking-proxies for details).
-    public abstract class Dog  
+    public abstract class Dog : MyBaseObject , INotifyPropertyChanging, INotifyPropertyChanged
     {
         public Dog()
         {
@@ -44,11 +44,14 @@ namespace Dogz.Module.BusinessObjects
         [NotMapped]
         public virtual DogBreed Breed  => (DogBreed)BreedId;
 
-        [Key]
-        public virtual int Id { get; set;}
+        //[Key]
+        //public virtual Guid Id { get; set;}
 
 
         public virtual ObservableCollection<Puppy> Puppies { get; set; }
+
+        public abstract event PropertyChangingEventHandler PropertyChanging;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         // Alternatively, specify more UI options:
         //[XafDisplayName("My display name"), ToolTip("My hint message")]
