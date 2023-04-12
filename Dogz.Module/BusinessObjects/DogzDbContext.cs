@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Design;
 using DevExpress.ExpressApp.EFCore.DesignTime;
 //using DevExpress.Persistent.BaseImpl.EFCore.AuditTrail;
 using DevExpress.CodeParser;
+using System.Xml;
 
 namespace Dogz.Module.BusinessObjects;
 
@@ -77,7 +78,18 @@ public class DogzEFCoreDbContext : DbContext {
         modelBuilder.Entity<PugPup>().HasOne(x => x.PugParent).WithMany(x => x.PugPups).HasForeignKey(x => x.ParentId);
         modelBuilder.Entity<Puppy>().HasOne(x => x.Parent).WithMany(x => x.Puppies).HasForeignKey(x => x.ParentId);
 
-         
+
+        modelBuilder.Entity<Dog>(b =>
+        {
+            b.HasKey(e => e.Id);
+            b.Property(e => e.Id).ValueGeneratedOnAdd();
+        });
+
+        modelBuilder.Entity<Puppy>(b =>
+        {
+            b.HasKey(e => e.Id);
+            b.Property(e => e.Id).ValueGeneratedOnAdd();
+        });
     }
 }
 

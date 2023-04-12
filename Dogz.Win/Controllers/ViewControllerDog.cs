@@ -52,11 +52,14 @@ namespace Dogz.Win.Controllers
             }
 
             var os = Application.CreateObjectSpace(typeof(Dog));
-            var pugPup = os.CreateObject<PugPup>();
-            pugPup.Parent = pug;
-            pugPup.BreedId = (int)DogBreed.Pug;
-            pugPup.Name = $"Bert {DateTime.Now}";
-            pug.PugPups.Add(pugPup);
+            var puppy = os.CreateObject<PugPup>() as Puppy;
+            var dog = pug as Dog;
+            puppy.Parent = dog;
+            dog.Puppies.Add(puppy);
+            //pugPup.Parent = pug;
+            //pugPup.BreedId = (int)DogBreed.Pug;
+            //pugPup.Name = $"Bert {DateTime.Now}";
+            //pug.PugPups.Add(pugPup);
 
             os.CommitChanges();
 
@@ -76,20 +79,29 @@ namespace Dogz.Win.Controllers
             
             }
             var db = Helpers.MakeDbContext();
-            var pugPup = new PugPup
-            {
-                Parent = pug,
-                Name = $"Bert {DateTime.Now}"
-            };
-            pug.PugPups.Add(pugPup);
-             
-          
-            db.Puppies.Add(pugPup);
-            //System.InvalidOperationException: 'The entity type 'PugPup' is configured to use the 'ChangingAndChangedNotificationsWithOriginalValues' change tracking strategy, but does not implement the required 'INotifyPropertyChanging' interface. Implement 
-            // If I make the keys a guid I get duplicate key errors
-            // If I have keys as an int I get SqlException: Cannot insert explicit value for identity column in table 'Dogs' when IDENTITY_INSERT is set to OFF.
+ 
 
-            db.SaveChanges();
+            var puppy = new PugPup
+            {
+                Name = $"Bert {DateTime.Now}"
+            } as Puppy;
+
+            var parentPug = db.Dogs.Find(pug.Id);
+            puppy.Parent = parentPug;
+            puppy.ParentId = parentPug.Id;
+            db.Puppies.Add(puppy);
+            db.SaveChanges();  
+
+           
+            //var dog = pug as Dog;
+            //puppy.Parent = dog;
+            //dog.Puppies.Add(puppy);
+            //db.Puppies.Add(puppy);
+            ////System.InvalidOperationException: 'The entity type 'PugPup' is configured to use the 'ChangingAndChangedNotificationsWithOriginalValues' change tracking strategy, but does not implement the required 'INotifyPropertyChanging' interface. Implement 
+            //// If I make the keys a guid I get duplicate key errors
+            //// If I have keys as an int I get SqlException: Cannot insert explicit value for identity column in table 'Dogs' when IDENTITY_INSERT is set to OFF.
+
+            //db.SaveChanges();
            
             var puppyCount = db.Puppies.Count();
             MessageBox.Show($"There are {puppyCount} puppies");
