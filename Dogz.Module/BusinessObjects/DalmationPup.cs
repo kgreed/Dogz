@@ -13,7 +13,7 @@ namespace Dogz.Module.BusinessObjects
         
         }
 
-        [ForeignKey(nameof(ParentId))]
+        [ForeignKey(nameof(ParentID))]
         public virtual Dalmation DalmationParent { get; set; }
         public override event PropertyChangingEventHandler PropertyChanging;
 

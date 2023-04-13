@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dogz.Module", "Dogz.Module\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dogz.Win", "Dogz.Win\Dogz.Win.csproj", "{AF7B71E7-1EF6-4CBE-9F52-FBEFA3C24C6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{293D80A8-F0CA-4ADD-91F3-2D0EDA6971AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,8 +28,17 @@ Global
 		{AF7B71E7-1EF6-4CBE-9F52-FBEFA3C24C6B}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{AF7B71E7-1EF6-4CBE-9F52-FBEFA3C24C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF7B71E7-1EF6-4CBE-9F52-FBEFA3C24C6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{293D80A8-F0CA-4ADD-91F3-2D0EDA6971AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{293D80A8-F0CA-4ADD-91F3-2D0EDA6971AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{293D80A8-F0CA-4ADD-91F3-2D0EDA6971AA}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{293D80A8-F0CA-4ADD-91F3-2D0EDA6971AA}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{293D80A8-F0CA-4ADD-91F3-2D0EDA6971AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{293D80A8-F0CA-4ADD-91F3-2D0EDA6971AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E278D0FE-D436-47E9-B169-39D15CED1899}
 	EndGlobalSection
 EndGlobal

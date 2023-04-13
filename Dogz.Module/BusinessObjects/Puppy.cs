@@ -23,9 +23,10 @@ namespace Dogz.Module.BusinessObjects
         //public virtual Guid Id { get; set; }
 
         public virtual string Name { get; set; }
-        public virtual int ParentId { get; set; }
+        [Column("ParentId")]
+        public virtual int ParentID { get; set; }
 
-        [ForeignKey("ParentId")]
+        [ForeignKey(nameof(ParentID))]
         public virtual Dog Parent { get; set; }
 
         public virtual int BreedId { get; set; }

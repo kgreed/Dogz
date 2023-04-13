@@ -86,9 +86,12 @@ namespace Dogz.Win.Controllers
                 Name = $"Bert {DateTime.Now}"
             } as Puppy;
 
-            var parentPug = db.Dogs.Find(pug.Id);
+           var topDog = db.Dogs.SingleOrDefault(x => x.Name == "Fred");
+           var parentPug = db.Dogs.Find(pug.Id); //works
+
+            
             puppy.Parent = parentPug;
-            puppy.ParentId = parentPug.Id;
+            puppy.ParentID = parentPug.Id;
             db.Puppies.Add(puppy);
             db.SaveChanges();  
 

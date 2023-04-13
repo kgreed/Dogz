@@ -10,7 +10,7 @@ namespace Dogz.Module.BusinessObjects
         public PoodlePup() { 
             BreedId = (int)DogBreed.Poodle;
         }
-        [ForeignKey(nameof(ParentId))]
+        [ForeignKey(nameof(ParentID))]
         public virtual Poodle PoodleParent { get; set; }
         public override event PropertyChangingEventHandler PropertyChanging;
     }

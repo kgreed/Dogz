@@ -73,10 +73,10 @@ public class DogzEFCoreDbContext : DbContext {
             .HasValue<DalmationPup>((int)DogBreed.Dalmation)
             .HasValue<PugPup>((int)DogBreed.Pug);
 
-        modelBuilder.Entity<DalmationPup>().HasOne(x => x.DalmationParent).WithMany(x => x.DalmationPups).HasForeignKey(x => x.ParentId);
-        modelBuilder.Entity<PoodlePup>().HasOne(x => x.PoodleParent).WithMany(x => x.PoodlePups).HasForeignKey(x => x.ParentId);
-        modelBuilder.Entity<PugPup>().HasOne(x => x.PugParent).WithMany(x => x.PugPups).HasForeignKey(x => x.ParentId);
-        modelBuilder.Entity<Puppy>().HasOne(x => x.Parent).WithMany(x => x.Puppies).HasForeignKey(x => x.ParentId);
+        modelBuilder.Entity<DalmationPup>().HasOne(x => x.DalmationParent).WithMany(x => x.DalmationPups).HasForeignKey(x => x.ParentID);
+        modelBuilder.Entity<PoodlePup>().HasOne(x => x.PoodleParent).WithMany(x => x.PoodlePups).HasForeignKey(x => x.ParentID);
+        modelBuilder.Entity<PugPup>().HasOne(x => x.PugParent).WithMany(x => x.PugPups).HasForeignKey(x => x.ParentID);
+        modelBuilder.Entity<Puppy>().HasOne(x => x.Parent).WithMany(x => x.Puppies).HasForeignKey(x => x.ParentID);
 
 
         modelBuilder.Entity<Dog>(b =>

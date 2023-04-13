@@ -14,7 +14,12 @@ namespace Dogz.Module
     {
         public static DogzEFCoreDbContext MakeDbContext()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            var connectionStringSettings = ConfigurationManager.ConnectionStrings;
+            
+          
+            var connectionString = connectionStringSettings["ConnectionString"].ConnectionString;
+            
+            
             var optionsBuilder = new DbContextOptionsBuilder<DogzEFCoreDbContext>()
                 .UseSqlServer(connectionString)
                 .UseChangeTrackingProxies()
@@ -24,7 +29,19 @@ namespace Dogz.Module
             return new DogzEFCoreDbContext(optionsBuilder.Options);
         }
 
-         
+        public static DogzEFCoreDbContext MakeDbContextWithConnectionString(string connectionString)
+        {
+            
+
+
+            var optionsBuilder = new DbContextOptionsBuilder<DogzEFCoreDbContext>()
+                .UseSqlServer(connectionString)
+                .UseChangeTrackingProxies()
+                .UseObjectSpaceLinkProxies();
+
+
+            return new DogzEFCoreDbContext(optionsBuilder.Options);
+        }
 
     }
 }
